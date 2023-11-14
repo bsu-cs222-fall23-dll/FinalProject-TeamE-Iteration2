@@ -74,7 +74,7 @@ public class CalculatorUI {
         displayPanel.setLayout(new GridLayout(1,1)); // set the number of button
         graphButton = new JButton("GRAPH"); // initiate graphButton to edit the layout
         graphButton.setFont(new Font("deafult", Font.PLAIN, 20)); // set the size and font of the button
-        graphButton.addActionListener(new GraphPlotter()); // enable button to draw the graph of the inputted equations
+       // graphButton.addActionListener(new GraphPlotter()); // enable button to draw the graph of the inputted equations
         displayPanel.add(graphButton); // add graphButton to the displayPanel
         calculator.add(displayPanel, BorderLayout.SOUTH); // add displayPanel to JFrame
 

@@ -8,7 +8,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GraphPlotter implements ActionListener {
+public class GraphPlotter {
     private List<Point> pointsToPlot;
     private Dimension graphSize;
 
@@ -79,18 +79,5 @@ public class GraphPlotter implements ActionListener {
                 g.drawLine(current.x, current.y, next.x, next.y); // draw a line between the current point and the next point
             }
         }
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        Dimension currentGraphsize = CalculatorUI.displayPanel.getSize();
-        CalculatorUI.plotter.setGraphSize(currentGraphsize);
-
-        System.out.println("Current Graph Panel Size: " + currentGraphsize);
-
-        String expression = CalculatorUI.textDisplay.getText();
-        CalculatorUI.plotter.computePlotPoints(expression, -((double) CalculatorUI.displayPanel.getSize().height / 2), ((double) CalculatorUI.displayPanel.getSize().height / 2), 1);
-        CalculatorUI.displayPanel.repaint();
-        CalculatorUI.plotter = new GraphPlotter(CalculatorUI.displayPanel.getSize());
     }
 }
