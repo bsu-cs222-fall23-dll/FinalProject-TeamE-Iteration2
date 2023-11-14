@@ -2,20 +2,33 @@ package org.example;
 
 import net.objecthunter.exp4j.Expression;
 import net.objecthunter.exp4j.ExpressionBuilder;
-
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GraphPlotter
-{
+public class GraphPlotter implements ActionListener {
     private List<Point> pointsToPlot;
+    private Dimension graphSize;
 
     public GraphPlotter() {
         this.pointsToPlot = new ArrayList<>();
     }
 
-    public void setGraphSize(Dimension currentGraphsize) {
+    public GraphPlotter(Dimension graphSize)
+    {
+        this.pointsToPlot = new ArrayList<>();
+        this.graphSize = graphSize;
+    }
+
+    public void setGraphSize(Dimension newSize)
+    {
+        this.graphSize = newSize;
+    }
+
+    public List<Point> getPointsToPlot() {
+        return pointsToPlot;
     }
 
     // this method will change the function into (x,y) coordinate shape based on the size of displayPanel
@@ -63,7 +76,21 @@ public class GraphPlotter
                 Point current = pointsToPlot.get(i); // get current point
                 Point next = pointsToPlot.get(i + 1); // get next point to connect with the current point
 
+                g.drawLine(current.x, current.y, next.x, next.y); // draw a line between the current point and the next point
             }
         }
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        Dimension currentGraphsize = CalculatorUI.displayPanel.getSize();
+        CalculatorUI.plotter.setGraphSize(currentGraphsize);
+
+        System.out.println("Current Graph Panel Size: " + currentGraphsize);
+
+        String expression = CalculatorUI.textDisplay.getText();
+        CalculatorUI.plotter.computePlotPoints(expression, -((double) CalculatorUI.displayPanel.getSize().height / 2), ((double) CalculatorUI.displayPanel.getSize().height / 2), 1);
+        CalculatorUI.displayPanel.repaint();
+        CalculatorUI.plotter = new GraphPlotter(CalculatorUI.displayPanel.getSize());
     }
 }

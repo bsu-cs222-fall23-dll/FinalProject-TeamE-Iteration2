@@ -13,7 +13,6 @@ package org.example;
 // import necessary libraries for UI design
 import java.awt.Graphics;
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -26,8 +25,7 @@ public class CalculatorUI {
     public static boolean startNewInput = true;
     public static JButton graphButton;
     public static JPanel displayPanel;
-    public static JTextField expressionField;
-
+    public static GraphPlotter plotter;
 
     // Calculator UI Design
     public CalculatorUI() {
@@ -37,7 +35,9 @@ public class CalculatorUI {
         calculator.setSize(600, 400); // set the size of JFrame as 400 by 560
         calculator.setLayout(new BorderLayout()); // set the layout of JFrame
 
-        // textDisplay Design (Font, Size, Location)
+        // textDisplay Design (Font, Size, Location)\
+
+        JTextField expressionField = new JTextField(20);
         textDisplay = new JTextField(); // set variable 'textDisplay' as a field that display text
         textDisplay.setFont(new Font("default", Font.PLAIN, 40)); // set the size and font of the text in the field
         textDisplay.setHorizontalAlignment(JTextField.RIGHT); // set the location of the text in the field
@@ -48,7 +48,7 @@ public class CalculatorUI {
         buttonPanel.setLayout(new GridLayout(6, 4)); // set the number of buttons
         // Button Layout
         String[] buttonLabels = {
-                "%", "CE", "C", "DEL",
+                "%", "CE", "C", "x",
                 "1/x", "x^2", "√", "/",
                 "7", "8", "9", "X",
                 "4", "5", "6", "-",
@@ -72,34 +72,16 @@ public class CalculatorUI {
         // 'graph' button panel
         displayPanel = new JPanel(); // initiate display panel to draw the graph
         displayPanel.setLayout(new GridLayout(1,1)); // set the number of button
-        String graphLabel = "GRAPH"; // Button Layout
-        graphButton = new JButton(graphLabel); // initiate graphButton to edit the layout
+        graphButton = new JButton("GRAPH"); // initiate graphButton to edit the layout
         graphButton.setFont(new Font("deafult", Font.PLAIN, 20)); // set the size and font of the button
-        graphButton.addActionListener(new ButtonClickListener()); // enable button to draw the graph of the inputted equations
+        graphButton.addActionListener(new GraphPlotter()); // enable button to draw the graph of the inputted equations
         displayPanel.add(graphButton); // add graphButton to the displayPanel
         calculator.add(displayPanel, BorderLayout.SOUTH); // add displayPanel to JFrame
 
-        GraphPlotter plotter = new GraphPlotter();
-
-        graphButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e)
-            {
-                Dimension currentGraphsize = CalculatorUI.displayPanel.getSize();
-                plotter.setGraphSize(currentGraphsize);
-                System.out.println("Current Graph panel Size: " + currentGraphsize);
-
-                String expression = expressionField.getText();
-                plotter.computePlotPoints(expression, -((double) displayPanel.getSize().height / 2), ((double) displayPanel.getSize().height / 2), 1);
-                displayPanel.repaint();
-            }
-        });
+        plotter = new GraphPlotter(displayPanel.getSize());
 
         calculator.setVisible(true); // make the JFrame visible
-        ButtonClickListener n = new ButtonClickListener();
     }
-
-    // add action to graphButton
 
     // Graph Part
     // Graph Panel with grid
@@ -109,6 +91,11 @@ public class CalculatorUI {
             super.paintComponent(g); // use paintComponent to draw grids
             drawGrid(g); // draw grids using the method 'drawGrid'
             drawAxes(g); // draw axes using the method 'drawAxes'
+
+            if (plotter != null)
+            {
+                plotter.drawPlot((Graphics2D) g);
+            }
         }
 
         // drawAxes method

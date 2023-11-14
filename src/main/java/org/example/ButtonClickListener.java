@@ -21,11 +21,21 @@ public class ButtonClickListener implements ActionListener
             CalculatorUI.textDisplay.setText(CalculatorUI.textDisplay.getText() + command);
         }
         // Interaction with 'DEL' button
-        else if (command.equals("C") || command.equals("CE") || command.equals("DEL"))
+        else if (command.equals("C") || command.equals("CE"))
         {
             CalculatorUI.textDisplay.setText("");
             CalculatorUI.firstOperand = 0;
             CalculatorUI.operator = "";
+        }
+        // Interaction with 'x' button
+        else if (command.equals("x"))
+        {
+            if (CalculatorUI.startNewInput)
+            {
+                CalculatorUI.textDisplay.setText("");
+                CalculatorUI.startNewInput = false;
+            }
+            CalculatorUI.textDisplay.setText(CalculatorUI.textDisplay.getText() + command);
         }
         // Interaction with '(-)' button
         else if (command.equals("(-)"))
