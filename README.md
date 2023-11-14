@@ -11,7 +11,7 @@ Build and Run Instructions: Run the GraphingCalculator class
 Branches
 -'sunghoohong': This branch contains all the commits
 
-Error that we are having:
+Compile Error that we are having:
 
 Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException: Cannot invoke "String.isEmpty()" because "org.example.RegularCalculator.operator" is null
 	at org.example.ButtonClickListener.actionPerformed(ButtonClickListener.java:81)
