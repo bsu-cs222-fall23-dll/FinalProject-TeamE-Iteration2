@@ -12,18 +12,15 @@ package org.example;
 
 // import necessary libraries for UI design
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import javax.swing.*;
 import java.awt.*;
 
-public class ArithmeticCalculatorUI {
+public class CalculatorUI {
     // Variable 'textDisplay' is to display what the user inputs and the result of the calculation
     private final JTextField textDisplay;
-    // initiate GraphPlotter to draw thea actual graphs
-    private static GraphPlotter plotter;
 
     // Calculator UI Design
-    public ArithmeticCalculatorUI() {
+    public CalculatorUI() {
         // Calculator Frame Design
         JFrame calculator = new JFrame("Calculator"); // initiate new JFrame
         calculator.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // set close operation that closes the application when the user pushes 'close' button
@@ -32,7 +29,7 @@ public class ArithmeticCalculatorUI {
 
         // textDisplay Design (Font, Size, Location)
         textDisplay = new JTextField(); // set variable 'textDisplay' as a field that display text
-        textDisplay.setFont(new Font("default", Font.PLAIN, 50)); // set the size and font of the text in the field
+        textDisplay.setFont(new Font("default", Font.PLAIN, 40)); // set the size and font of the text in the field
         textDisplay.setHorizontalAlignment(JTextField.RIGHT); // set the location of the text in the field
         calculator.add(textDisplay, BorderLayout.NORTH); // add textDisplay to the JFrame created at the North of JFrame
 
@@ -62,8 +59,14 @@ public class ArithmeticCalculatorUI {
         graphPanel.setBackground(Color.WHITE); // set the background color of graphPanel as WHITE
         calculator.add(graphPanel, BorderLayout.CENTER); // add graphPanel to JFrame
 
-        calculator.setVisible(true); // make the JFrame visible
+        // 'graph' button panel
+        JPanel displayPanel = new JPanel(); // initiate display panel to draw the graph
+        displayPanel.setLayout(new GridLayout(1,1)); // set the number of button
+        String graphLabel = "GRAPH"; // Button Layout
+        JButton graphButton = new JButton(graphLabel); // initiate
+        graphButton
 
+        calculator.setVisible(true); // make the JFrame visible
 
     }
 
@@ -73,7 +76,7 @@ public class ArithmeticCalculatorUI {
         @Override
         protected void paintComponent(Graphics g) {
             super.paintComponent(g); // use paintComponent to draw grids
-            drawGrid(g, 10); // draw grids using the method 'drawGrid'
+            drawGrid(g); // draw grids using the method 'drawGrid'
             drawAxes(g); // draw axes using the method 'drawAxes'
         }
 
@@ -92,7 +95,7 @@ public class ArithmeticCalculatorUI {
         }
 
         // drawGrid method
-        private void drawGrid(Graphics g, int gridSize) {
+        private void drawGrid(Graphics g) {
             int width = graphPanel.getWidth(); // get width of graphPanel to define the center of x-axis
             int height = graphPanel.getHeight(); // get height of graphPanel to define the center of y-axis
 
@@ -102,18 +105,18 @@ public class ArithmeticCalculatorUI {
             g.setColor(Color.black); // set color for grid lines
 
             // draw vertical grid lines
-            for (int x = centerX; x < width; x += gridSize) {
+            for (int x = centerX; x < width; x += 10) {
                 g.drawLine(x, 0, x, height);
             }
-            for (int x = centerX; x > 0; x -= gridSize) {
+            for (int x = centerX; x > 0; x -= 10) {
                 g.drawLine(x, 0, x, height);
             }
 
             // draw horizontal grid lines
-            for (int y = centerY; y < height; y += gridSize) {
+            for (int y = centerY; y < height; y += 10) {
                 g.drawLine(0, y, width, y);
             }
-            for (int y = centerY; y > 0; y -= gridSize) {
+            for (int y = centerY; y > 0; y -= 10) {
                 g.drawLine(0, y, width, y);
             }
         }
