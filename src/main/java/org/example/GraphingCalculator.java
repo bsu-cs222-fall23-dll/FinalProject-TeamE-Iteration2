@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 
 public class GraphingCalculator
 {
+    public static JPanel graphPanel;
 
     public static void setupGraphingCalculatorPanel(JPanel panel)
     {
@@ -18,7 +19,7 @@ public class GraphingCalculator
         panel.add(topPanel, BorderLayout.NORTH); // Add the JPanel to the bigger JPanel and set the location in NORTH
 
         // Create a JPanel to plot the graph
-        JPanel graphPanel = new JPanel()
+        graphPanel = new JPanel()
         {
             @Override
             protected void paintComponent(Graphics g)

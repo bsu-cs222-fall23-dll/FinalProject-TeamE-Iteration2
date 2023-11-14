@@ -34,14 +34,12 @@ public class GraphPlotter {
 
     // Convert (x,y) coordinate values into screen coordinate
     private Point convertToScreenCoordinates(Point mathPoint) {
-        int centerX = 300;
-        int centerY = 167;
+        int centerX = GraphingCalculator.graphPanel.getWidth() / 2;
+        int centerY = GraphingCalculator.graphPanel.getHeight() / 2;
 
         // Functions that convert a mathematical point to a screen coordinate point
         int screenX = centerX + mathPoint.x;
         int screenY = centerY - mathPoint.y;
-
-        System.out.println("Math Point: " + mathPoint + " -> Screen Point: " + new Point(screenX, screenY));
 
         return new Point(screenX, screenY);
     }

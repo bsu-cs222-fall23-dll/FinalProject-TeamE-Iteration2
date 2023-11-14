@@ -13,88 +13,78 @@ public class ButtonClickListener implements ActionListener
         // Interaction with numbers (0~9)
         if (command.matches("[0-9]"))
         {
-            if (CalculatorUI.startNewInput)
+            if (RegularCalculator.startNewInput)
             {
-                CalculatorUI.textDisplay.setText("");
-                CalculatorUI.startNewInput = false;
+                RegularCalculator.textDisplay.setText("");
+                RegularCalculator.startNewInput = false;
             }
-            CalculatorUI.textDisplay.setText(CalculatorUI.textDisplay.getText() + command);
+            RegularCalculator.textDisplay.setText(RegularCalculator.textDisplay.getText() + command);
         }
         // Interaction with 'DEL' button
-        else if (command.equals("C") || command.equals("CE"))
+        else if (command.equals("C") || command.equals("CE") || command.equals("DEL"))
         {
-            CalculatorUI.textDisplay.setText("");
-            CalculatorUI.firstOperand = 0;
-            CalculatorUI.operator = "";
-        }
-        // Interaction with 'x' button
-        else if (command.equals("x"))
-        {
-            if (CalculatorUI.startNewInput)
-            {
-                CalculatorUI.textDisplay.setText("");
-                CalculatorUI.startNewInput = false;
-            }
-            CalculatorUI.textDisplay.setText(CalculatorUI.textDisplay.getText() + command);
+            RegularCalculator.textDisplay.setText("");
+            RegularCalculator.firstOperand = 0;
+            RegularCalculator.operator = "";
         }
         // Interaction with '(-)' button
         else if (command.equals("(-)"))
         {
-            CalculatorUI.textDisplay.setText("-" + CalculatorUI.textDisplay.getText());
+            RegularCalculator.textDisplay.setText("-" + RegularCalculator.textDisplay.getText());
         }
         // Interaction with '.' button
         else if (command.equals("."))
         {
-            CalculatorUI.textDisplay.setText(CalculatorUI.textDisplay.getText() + command);
+            RegularCalculator.textDisplay.setText(RegularCalculator.textDisplay.getText() + command);
         }
         // Interactions with '=', '+', '-', 'x', '1/x', 'x^2', 'sqrt', '%', '/' buttons
         else if (command.equals("="))
         {
-            double secondOperand = Double.parseDouble(CalculatorUI.textDisplay.getText());
+            double secondOperand = Double.parseDouble(RegularCalculator.textDisplay.getText());
             double result = 0;
-            switch (CalculatorUI.operator)
+            switch (RegularCalculator.operator)
             {
                 // + Button
-                case "+" -> result = CalculatorUI.firstOperand + secondOperand;
+                case "+" -> result = RegularCalculator.firstOperand + secondOperand;
                 // - Button
-                case "-" -> result = CalculatorUI.firstOperand - secondOperand;
+                case "-" -> result = RegularCalculator.firstOperand - secondOperand;
                 // x Button
-                case "X" -> result = CalculatorUI.firstOperand * secondOperand;
+                case "X" -> result = RegularCalculator.firstOperand * secondOperand;
                 // 1/x Button
                 case "1/x" -> {
-                    if (CalculatorUI.firstOperand != 0)
+                    if (RegularCalculator.firstOperand != 0)
                     {
-                        result = 1 / CalculatorUI.firstOperand;
+                        result = 1 / RegularCalculator.firstOperand;
                     } else {
-                        CalculatorUI.textDisplay.setText("ERROR");
+                        RegularCalculator.textDisplay.setText("ERROR");
                     }
                 }
                 // x^2 Button
-                case "x^2" -> result = (int) Math.pow(CalculatorUI.firstOperand, 2);
+                case "x^2" -> result = (int) Math.pow(RegularCalculator.firstOperand, 2);
                 // √ Button
-                case "√" -> result = Math.sqrt(CalculatorUI.firstOperand);
+                case "√" -> result = Math.sqrt(RegularCalculator.firstOperand);
                 // % Button
-                case "%" -> result = CalculatorUI.firstOperand / 100;
+                case "%" -> result = RegularCalculator.firstOperand / 100;
                 // / Button
                 case "/" -> {
                     if (secondOperand != 0)
                     {
-                        result = CalculatorUI.firstOperand / secondOperand;
+                        result = RegularCalculator.firstOperand / secondOperand;
                     } else {
-                        CalculatorUI.textDisplay.setText("ERROR");
+                        RegularCalculator.textDisplay.setText("ERROR");
                     }
                 }
             }
-            CalculatorUI.textDisplay.setText(String.valueOf(result));
-            CalculatorUI.startNewInput = true;
+            RegularCalculator.textDisplay.setText(String.valueOf(result));
+            RegularCalculator.startNewInput = true;
         } else {
-            if (!CalculatorUI.operator.isEmpty())
+            if (!RegularCalculator.operator.isEmpty())
             {
                 return;
             }
-            CalculatorUI.firstOperand = Double.parseDouble(CalculatorUI.textDisplay.getText());
-            CalculatorUI.operator = command;
-            CalculatorUI.startNewInput = true;
+            RegularCalculator.firstOperand = Double.parseDouble(RegularCalculator.textDisplay.getText());
+            RegularCalculator.operator = command;
+            RegularCalculator.startNewInput = true;
         }
     }
 }
