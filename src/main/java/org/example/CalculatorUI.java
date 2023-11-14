@@ -90,7 +90,7 @@ public class CalculatorUI {
                 System.out.println("Current Graph panel Size: " + currentGraphsize);
 
                 String expression = expressionField.getText();
-                plotter.computePlotPoints(expression, -(displayPanel.getSize().height / 2), (displayPanel.getSize().height / 2), 1);
+                plotter.computePlotPoints(expression, -((double) displayPanel.getSize().height / 2), ((double) displayPanel.getSize().height / 2), 1);
                 displayPanel.repaint();
             }
         });

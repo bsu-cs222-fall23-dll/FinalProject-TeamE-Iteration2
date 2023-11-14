@@ -37,8 +37,33 @@ public class GraphPlotter
     }
 
     // Convert (x,y) coordinate values into screen coordinate
-    private Point convertToScreenCoordinate(Point matchPoint)
+    private Point convertToScreenCoordinate(Point mathPoint)
     {
+        int centerX = CalculatorUI.displayPanel.getSize().width / 2;
+        int centerY = CalculatorUI.displayPanel.getSize().height / 2;
 
+        // functions that convert a mathematical point to a screen coordinate point
+        int screenX = centerX + mathPoint.x;
+        int screenY = centerY - mathPoint.y;
+
+        return new Point(screenX, screenY);
+    }
+
+    // draw the graph by connecting all the plots
+    public void drawPlot (Graphics2D g)
+    {
+        g.setColor(Color.BLUE); // set the color of the plot as BLUE
+
+        // check if there are points to plot
+        if (pointsToPlot != null && !pointsToPlot.isEmpty())
+        {
+            // Loop through the whole ArrayList from i = 0
+            for (int i = 0; i < pointsToPlot.size() - 1; i++)
+            {
+                Point current = pointsToPlot.get(i); // get current point
+                Point next = pointsToPlot.get(i + 1); // get next point to connect with the current point
+
+            }
+        }
     }
 }
