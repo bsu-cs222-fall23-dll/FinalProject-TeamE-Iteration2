@@ -18,7 +18,10 @@ import java.awt.*;
 
 public class CalculatorUI {
     // Variable 'textDisplay' is to display what the user inputs and the result of the calculation
-    private final JTextField textDisplay;
+    public static JTextField textDisplay;
+    public static double firstOperand = 0;
+    public static String operator = "";
+    public static boolean startNewInput = true;
 
     // Calculator UI Design
     public CalculatorUI() {
@@ -71,7 +74,7 @@ public class CalculatorUI {
         calculator.add(displayPanel, BorderLayout.SOUTH); // add displayPanel to JFrame
 
         calculator.setVisible(true); // make the JFrame visible
-
+        ButtonClickListener n = new ButtonClickListener();
     }
 
     // Graph Part
