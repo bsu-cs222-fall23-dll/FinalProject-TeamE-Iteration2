@@ -5,8 +5,6 @@ import java.awt.event.ActionListener;
 
 public class ButtonClickListener implements ActionListener
 {
-    // Initiate variable 'firstOperand' that will store the first part of user's input
-
     public void actionPerformed(ActionEvent e) {
         String command = e.getActionCommand(); // initiate variable to check what the user inputs
 
