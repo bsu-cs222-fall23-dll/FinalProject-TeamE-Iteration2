@@ -13,6 +13,7 @@ package org.example;
 // import necessary libraries for UI design
 import java.awt.Graphics;
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 
 public class CalculatorUI {
@@ -67,6 +68,7 @@ public class CalculatorUI {
         graphButton.setFont(new Font("deafult", Font.PLAIN, 20)); // set the size and font of the button
         graphButton.addActionListener(new ButtonClickListener()); // enable button to draw the graph of the inputted equations
         displayPanel.add(graphButton); // add graphButton to the displayPanel
+        calculator.add(displayPanel, BorderLayout.SOUTH); // add displayPanel to JFrame
 
         calculator.setVisible(true); // make the JFrame visible
 
