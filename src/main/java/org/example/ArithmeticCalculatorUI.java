@@ -11,6 +11,8 @@ Advanced features such as trigonometry and calculus will be added later in the t
 package org.example;
 
 // import necessary libraries for UI design
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import javax.swing.*;
 import java.awt.*;
 
@@ -18,10 +20,8 @@ public class ArithmeticCalculatorUI
 {
     // Variable 'textDisplay' is to display what the user inputs and the result of the calculation
     private final JTextField textDisplay;
-    // Initiate variable 'firstOperand' that will store the first part of user's input
-    private double firstOperand = 0;
-    private String operator = "";
-    private boolean startNewInput = true;
+    // initiate GraphPlotter to draw thea actual graphs
+    private static GraphPlotter plotter;
 
     // Calculator UI Design
     public ArithmeticCalculatorUI()
@@ -29,7 +29,7 @@ public class ArithmeticCalculatorUI
         // Calculator Frame Design
         JFrame calculator = new JFrame("Calculator"); // initiate new JFrame
         calculator.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // set close operation that closes the application when the user pushes 'close' button
-        calculator.setSize(400,560); // set the size of JFrame as 400 by 560
+        calculator.setSize(1000,600); // set the size of JFrame as 400 by 560
         calculator.setLayout(new BorderLayout()); // set the layout of JFrame
 
         // textDisplay Design (Font, Size, Location)
@@ -61,5 +61,63 @@ public class ArithmeticCalculatorUI
         }
 
         calculator.add(buttonPanel, BorderLayout.CENTER); // add buttonPanel to the JFrame and set the location of buttons
+        calculator.setVisible(true); // make the JFrame visible
+
+
+    }
+
+    // Graph Part
+    // Graph Panel with grid
+    JPanel graphPanel = new JPanel()
+    {
+        @Override
+        protected void paintComponent(Graphics g)
+        {
+            super.paintComponent(g); // use paintComponent to draw grids
+            drawGrid(g, 10); // draw grids using the method 'drawGrid'
+            drawAxes(g); // draw axes using the method 'drawAxes'
+        }
+
+        // drawAxes method
+        private void drawAxes(Graphics g)
+        {
+            int width = graphPanel.getWidth(); // get width of graphPanel to draw x-axis
+            int height = getHeight(); // get width of graphPanel to draw y-axis
+
+            // x-axis
+            g.setColor(Color.BLUE); // set the color of x-axis as BLUE
+            g.drawLine(0, height / 2, width, height / 2); // draw x-axis
+
+            // y-axis
+            g.setColor(Color.RED); // set the color of y-axis as RED
+        }
+
+        // drawGrid method
+        private void drawGrid(Graphics g, int gridSize)
+        {
+            int width = graphPanel.getWidth(); // get width of graphPanel to define the center of x-axis
+            int height = graphPanel.getHeight(); // get height of graphPanel to define the center of y-axis
+
+            int centerX = width / 2; // define the center of x-axis
+            int centerY = height / 2; // define the center of y-axis
+
+            g.setColor(Color.black); // set color for grid lines
+
+            // draw vertical grid lines
+            for (int x = centerX; x < width; x += gridSize) {
+                g.drawLine(x, 0, x, height);
+            }
+            for (int x = centerX; x > 0; x -= gridSize) {
+                g.drawLine(x, 0, x, height);
+            }
+
+            // draw horizontal grid lines
+            for (int y = centerY; y < height; y += gridSize) {
+                g.drawLine(0, y, width, y);
+            }
+            for (int y = centerY; y > 0; y -= gridSize) {
+                g.drawLine(0, y, width, y);
+            }
+        }
     }
 }
