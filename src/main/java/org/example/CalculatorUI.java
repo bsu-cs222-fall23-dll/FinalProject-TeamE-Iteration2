@@ -15,6 +15,8 @@ import java.awt.Graphics;
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class CalculatorUI {
     // Variable 'textDisplay' is to display what the user inputs and the result of the calculation
@@ -22,6 +24,10 @@ public class CalculatorUI {
     public static double firstOperand = 0;
     public static String operator = "";
     public static boolean startNewInput = true;
+    public static JButton graphButton;
+    public static JPanel displayPanel;
+    public static JTextField expressionField;
+
 
     // Calculator UI Design
     public CalculatorUI() {
@@ -64,18 +70,36 @@ public class CalculatorUI {
         calculator.add(graphPanel, BorderLayout.CENTER); // add graphPanel to JFrame
 
         // 'graph' button panel
-        JPanel displayPanel = new JPanel(); // initiate display panel to draw the graph
+        displayPanel = new JPanel(); // initiate display panel to draw the graph
         displayPanel.setLayout(new GridLayout(1,1)); // set the number of button
         String graphLabel = "GRAPH"; // Button Layout
-        JButton graphButton = new JButton(graphLabel); // initiate graphButton to edit the layout
+        graphButton = new JButton(graphLabel); // initiate graphButton to edit the layout
         graphButton.setFont(new Font("deafult", Font.PLAIN, 20)); // set the size and font of the button
         graphButton.addActionListener(new ButtonClickListener()); // enable button to draw the graph of the inputted equations
         displayPanel.add(graphButton); // add graphButton to the displayPanel
         calculator.add(displayPanel, BorderLayout.SOUTH); // add displayPanel to JFrame
 
+        GraphPlotter plotter = new GraphPlotter();
+
+        graphButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                Dimension currentGraphsize = CalculatorUI.displayPanel.getSize();
+                plotter.setGraphSize(currentGraphsize);
+                System.out.println("Current Graph panel Size: " + currentGraphsize);
+
+                String expression = expressionField.getText();
+                plotter.computePlotPoints(expression, -(displayPanel.getSize().height / 2), (displayPanel.getSize().height / 2), 1);
+                displayPanel.repaint();
+            }
+        });
+
         calculator.setVisible(true); // make the JFrame visible
         ButtonClickListener n = new ButtonClickListener();
     }
+
+    // add action to graphButton
 
     // Graph Part
     // Graph Panel with grid
