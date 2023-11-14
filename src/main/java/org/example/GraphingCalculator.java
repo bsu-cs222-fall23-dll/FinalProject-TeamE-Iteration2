@@ -1,45 +1,46 @@
 package org.example;
 
-// Import necessary libraries for UI design
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class GraphingCalculator
 {
-    private static GraphPlotter plotter; // Initiate plotter to plot the graph
-    private static JTextField equationField; // Initiate a text field 'equationField'
-    public static JPanel graphingCalculatorPanel; // Initiate a JPanel 'graphingCalculatorPanel'
-    public static JPanel regularCalculatorPanel; // Initiate a JPanel 'regularCalculatorPanel'
 
-    public static void main(String[] args)
+    public static void setupGraphingCalculatorPanel(JPanel panel)
     {
-        SwingUtilities.invokeLater(GraphingCalculator::createAndShowGUI);
-    }
+        JPanel topPanel = new JPanel(); // Create a JPanel to let users write equation
+        Calculator.equationField = new JTextField(20); // Create a JTextField to display the user's input
+        JButton plotButton = new JButton("Plot"); // Create a JButton to let users plot the graph
+        topPanel.add(Calculator.equationField); // Add the JTextField to the created JPanel
+        topPanel.add(plotButton); // Add the JButton to the created JPanel
+        panel.add(topPanel, BorderLayout.NORTH); // Add the JPanel to the bigger JPanel and set the location in NORTH
 
-    private static void createAndShowGUI()
-    {
-        JFrame calculator = new JFrame("Graphing Calculator"); // Create a JFrame 'calculator'
-        calculator.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  // Set close operation that closes the application when the user pushes 'close' button
-        calculator.setSize(600, 400); // Set the size of the JFrame as 600 by 400
+        // Create a JPanel to plot the graph
+        JPanel graphPanel = new JPanel()
+        {
+            @Override
+            protected void paintComponent(Graphics g)
+            {
+                super.paintComponent(g);
+                drawGrid(g);
+                drawAxes(g);
 
-        JTabbedPane tabs = new JTabbedPane(); // Create a tabbed JPanel to separate graphing part and a regular calculator
+                if (Calculator.plotter != null)
+                {
+                    Calculator.plotter.drawPlot((Graphics2D) g);
+                }
+            }
 
-        // Graphing Calculator Panel
-        graphingCalculatorPanel = new JPanel(new BorderLayout()); // Create a JPanel
-        setupGraphingCalculatorPanel(graphingCalculatorPanel); // Complete the set-up of the panel by using the method 'setupGraphingCalculatorPanel'
-        tabs.addTab("Graphing Calculator", graphingCalculatorPanel); // Add 'graphingCalculatorPanel' as one tab of the calculatorPanel
+            // drawGrid method to draw the grid lines
+            private void drawGrid(Graphics g)
+            {
+                int width = getWidth(); // Get the length of width of the JPanel
+                int height = getHeight(); // Get the length of height of the JPanel
+                int centerX = width / 2; // Set the center of x-axis
+                int centerY = height / 2; // Set the center of y-axis
+            }
+        };
 
-        // Arithmetic Calculator Panel
-        regularCalculatorPanel = new JPanel(new BorderLayout()); // Create a JPanel
-        setupRegularCalculatorPanel(regularCalculatorPanel); // Complete the set-up of the panel by using the method 'setupRegularCalculatorPanel'
-        tabs.addTab("Regular Calculator", regularCalculatorPanel); // Add 'regularCalculatorPanel' as one tab of the calculatorPanel
-    }
 
-    private static void setupRegularCalculatorPanel(JPanel arithmeticCalculatorPanel) {
-    }
-
-    private static void setupGraphingCalculatorPanel(JPanel graphingCalculatorPanel) {
     }
 }
