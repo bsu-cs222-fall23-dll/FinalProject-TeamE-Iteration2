@@ -2,8 +2,6 @@ package org.example;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class RegularCalculator
 {
@@ -16,7 +14,6 @@ public class RegularCalculator
     {
         // textDisplay Design (Font, Size, Location)\
         textDisplay = new JTextField(20);
-        textDisplay = new JTextField(); // set variable 'textDisplay' as a field that display text
         textDisplay.setFont(new Font("default", Font.PLAIN, 40)); // set the size and font of the text in the field
         textDisplay.setHorizontalAlignment(JTextField.RIGHT); // set the location of the text in the field
         panel.add(textDisplay, BorderLayout.NORTH); // add textDisplay to the JFrame created at the North of JFrame
