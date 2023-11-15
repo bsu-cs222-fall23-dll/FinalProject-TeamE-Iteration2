@@ -25,8 +25,12 @@ public class GraphingCalculator
             protected void paintComponent(Graphics g)
             {
                 super.paintComponent(g);
-                drawGrid(g);
-                drawAxes(g);
+
+                if (GraphingCalculator.graphPanel != null)
+                {
+                    drawGrid(g);
+                    drawAxes(g);
+                }
 
                 if (Calculator.plotter != null)
                 {
@@ -86,11 +90,15 @@ public class GraphingCalculator
             @Override
             public void actionPerformed(ActionEvent e) {
                 Dimension currentGraphSize = graphPanel.getSize();
-                Calculator.plotter.setGraphSize(currentGraphSize);
 
-                String equation = Calculator.equationField.getText();
-                Calculator.plotter.computePlotPoints(equation, -300, 300, 1);
-                graphPanel.repaint();
+                if (Calculator.plotter != null)
+                {
+                    Calculator.plotter.setGraphSize(currentGraphSize);
+
+                    String equation = Calculator.equationField.getText();
+                    Calculator.plotter.computePlotPoints(equation, -300, 300, 1);
+                    graphPanel.repaint();
+                }
             }
         });
     }
