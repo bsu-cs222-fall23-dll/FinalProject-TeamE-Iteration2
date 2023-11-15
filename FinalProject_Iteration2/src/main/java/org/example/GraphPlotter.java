@@ -33,7 +33,7 @@ public class GraphPlotter {
     }
 
     // Convert (x,y) coordinate values into screen coordinate
-    private Point convertToScreenCoordinates(Point mathPoint) {
+    public Point convertToScreenCoordinates(Point mathPoint) {
         int centerX = GraphingCalculator.graphPanel.getWidth() / 2;
         int centerY = GraphingCalculator.graphPanel.getHeight() / 2;
 
